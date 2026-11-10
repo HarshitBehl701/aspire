@@ -1,4 +1,12 @@
-@import url('../../cdn.jsdelivr.net/npm/remixicon%403.4.0/fonts/remixicon.css');
+@import url('remixicon.css');
+@font-face {
+	font-family: "FontAwesome";
+	font-style: normal;
+	font-weight: 900;
+	src: url("../fonts/fa-solid-900.woff2") format("woff2"),
+	     url("../fonts/fa-solid-900.woff") format("woff"),
+	     url("../fonts/fa-solid-900.ttf") format("truetype");
+}
 .black-menu {display:none;}
 .menu_fixed .white-menu {display:none;}
 .menu_fixed .black-menu {display:inherit;}
@@ -498,3 +506,31 @@ li.active ul.dropdown_header li a
 
 
 
+
+.main-menu-wrapper .logo {
+    padding: 16px 0;
+}
+.main-menu-wrapper .logo img {
+    max-height: 76px;
+    width: auto;
+    max-width: 100%;
+    display: block;
+}
+@media (min-width: 992px) {
+    .sc_navigation {
+        margin-top: 0;
+    }
+    .sc_navigation nav > ul {
+        margin-top: 22px;
+        margin-bottom: 18px;
+    }
+}
+.footer_wrapper .logo-wrapper img {
+    background: #ffffff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    max-width: 240px;
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
