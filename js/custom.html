@@ -1,0 +1,77 @@
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    // 1. Mobile Navigation Drawer + Submenu Accordion
+    var menuWrapper = document.querySelector('.bt_main_menu_wrapper');
+    var mobileArea = document.querySelector('.mobile-menu-area');
+
+    if (menuWrapper && mobileArea) {
+      var toggleBtn = document.createElement('button');
+      toggleBtn.type = 'button';
+      toggleBtn.className = 'mobile-nav-toggle';
+      toggleBtn.setAttribute('aria-label', 'Toggle navigation menu');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      toggleBtn.innerHTML = '<span></span><span></span><span></span>';
+
+      var mainMenuLogoWrap = menuWrapper.querySelector('.main-menu-wrapper');
+      if (mainMenuLogoWrap && mainMenuLogoWrap.nextSibling) {
+        menuWrapper.insertBefore(toggleBtn, mainMenuLogoWrap.nextSibling);
+      } else {
+        menuWrapper.appendChild(toggleBtn);
+      }
+
+      toggleBtn.addEventListener('click', function () {
+        var isOpen = mobileArea.classList.toggle('is-open');
+        toggleBtn.classList.toggle('is-open', isOpen);
+        toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      // Add expandable toggle for submenus inside mobile menu
+      var mobileItems = mobileArea.querySelectorAll('nav ul > li');
+      mobileItems.forEach(function (li) {
+        var sub = li.querySelector('ul');
+        if (sub) {
+          li.classList.add('has-submenu');
+          var subToggle = document.createElement('button');
+          subToggle.type = 'button';
+          subToggle.className = 'submenu-toggle';
+          subToggle.setAttribute('aria-label', 'Toggle submenu');
+          subToggle.setAttribute('aria-expanded', 'false');
+          subToggle.textContent = '+';
+          li.insertBefore(subToggle, sub);
+
+          subToggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var expanded = li.classList.toggle('submenu-open');
+            subToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            subToggle.textContent = expanded ? '−' : '+';
+          });
+        }
+      });
+    }
+
+    // 2. Sticky Header on Scroll
+    var headerArea = document.querySelector('.header-area.stick');
+    if (headerArea) {
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 100) {
+          headerArea.classList.add('menu_fixed');
+        } else {
+          headerArea.classList.remove('menu_fixed');
+        }
+      }, { passive: true });
+    }
+
+    // 3. Return-to-top Button
+    var returnTop = document.getElementById('return-to-top');
+    if (returnTop) {
+      window.addEventListener('scroll', function () {
+        returnTop.style.display = window.scrollY > 250 ? 'block' : 'none';
+      }, { passive: true });
+      returnTop.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  });
+})();
